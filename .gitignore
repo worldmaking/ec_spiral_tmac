@@ -32,3 +32,4 @@
 *.app
 /.vs
 /obj/x64/Debug
+/obj/Win32/Debug

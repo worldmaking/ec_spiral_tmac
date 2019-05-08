@@ -2,7 +2,9 @@
 
 //--------------------------------------------------------------
 void ofApp::setup(){
-
+	//shader.load(vert, frag);
+	bool ok = shader.load("shaders/c.vert.glsl", "shaders/c.frag.glsl");
+	printf("shader load ok %d\n", ok);
 }
 
 //--------------------------------------------------------------
@@ -12,7 +14,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+	shader.begin();
 
+	shader.end();
 }
 
 //--------------------------------------------------------------
