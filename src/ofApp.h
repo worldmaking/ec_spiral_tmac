@@ -22,4 +22,5 @@ class ofApp : public ofBaseApp{
 		void gotMessage(ofMessage msg);
 		
 		ofShader shader;
+		ofPlanePrimitive plane;
 };
