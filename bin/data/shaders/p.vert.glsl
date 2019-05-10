@@ -1,6 +1,15 @@
-#include "lib.glsl"
-#version 150
+#version 410
 
+uniform mat4 projectionMatrix;
+uniform mat4 modelViewMatrix;
+
+in vec4 position;
+
+void main() {
+	gl_Position = projectionMatrix * modelViewMatrix * position;
+	gl_PointSize = 10;
+}
+/*
 uniform mat4	ciModelView;
 uniform mat4	ciModelViewProjection;
 uniform mat4 ciProjectionMatrixInverse, ciViewMatrixInverse;
@@ -64,3 +73,4 @@ void main( void )
 	
 	gl_PointSize = pointSize / gl_Position.w; // // * vertex.w / gl_Position.z;
 }
+*/

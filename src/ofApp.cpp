@@ -38,6 +38,26 @@ void ofApp::setup(){
 
 	mFaceOrient = mNavOrient = glm::quat_cast(glm::mat4(1.0));
 
+	mParticleShader.load("shaders/p.vert.glsl", "shaders/p.frag.glsl");
+
+	mParticleVbo.getVertices().resize(NUM_PARTICLES);
+	mParticleVbo.getColors().resize(NUM_PARTICLES);
+	mParticleVbo.getNormals().resize(NUM_PARTICLES, ofVec3f(0));
+	// ------------------------- billboard particles
+	ofVec3f billboardVels[NUM_PARTICLES];
+	for (int i = 0; i < NUM_PARTICLES; i++) {
+
+		billboardVels[i].set(ofRandomf(), -1.0, ofRandomf());
+		mParticleVbo.getVertices()[i] = { ofRandom(-5, 5),ofRandom(-5, 5),ofRandom(-5, 5) };
+
+		mParticleVbo.getColors()[i].set(ofColor::fromHsb(ofRandom(96, 160), 255, 255));
+		//billboardSizeTarget[i] = ofRandom(4, 64);
+
+}
+	mParticleVbo.setUsage(GL_DYNAMIC_DRAW);
+	mParticleVbo.setMode(OF_PRIMITIVE_POINTS);
+	//mParticleVbo.setVertexData(mParticleVbo.getVertices(), sizeof(particle_base) * NUM_PARTICLES, GL_DYNAMIC_DRAW);
+
 #ifdef AN_FINAL
 	mStartInFullscreen = true;
 	mPerfLog = false;
@@ -224,8 +244,8 @@ void ofApp::setup(){
 
 
 	//shader.load(vert, frag);
-	bool ok = shader.load("shaders/c.vert.glsl", "shaders/c.frag.glsl");
-	printf("shader load ok %d\n", ok);
+	//bool ok = shader.load("shaders/c.vert.glsl", "shaders/c.frag.glsl");
+	//printf("shader load ok %d\n", ok);
 
 }
 
@@ -548,6 +568,15 @@ void  ofApp::render(vr::Hmd_Eye nEye)
 	glm::mat4x4 currentViewProjectionMatrix = mVive.getCurrentViewProjectionMatrix(nEye);
 	glm::mat4x4 hdmPoseMat = _translateMatrix * currentViewProjectionMatrix;
 
+	ofSetMatrixMode(OF_MATRIX_PROJECTION);
+	ofLoadMatrix(mVive.getCurrentProjectionMatrix(nEye));
+	ofSetMatrixMode(OF_MATRIX_MODELVIEW);
+	ofLoadMatrix(mVive.getCurrentViewMatrix(nEye));
+
+	mParticleShader.begin();
+	mParticleVbo.draw();
+	mParticleShader.end();
+
 	_shader.begin();
 	_shader.setUniformMatrix4f("matrix", hdmPoseMat, 1);
 	_shader.setUniformTexture("baseTex", _texture, 0);
@@ -583,6 +612,22 @@ void ofApp::controllerEvent(ofxOpenVRControllerEventArgs& args)
 		mEvaluation = false;
 	}
 
+
+}
+
+void ofApp::draw_particles(float scale = 1.f) {
+	
+}
+
+void ofApp::draw_organisms() {
+
+}
+
+void ofApp::draw_organisms_outlines() {
+
+}
+
+void ofApp::draw_stalks() {
 
 }
 //--------------------------------------------------------------

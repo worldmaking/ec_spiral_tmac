@@ -1,5 +1,3 @@
-#pragma once
-
 #include "ofMain.h"
 #include "World.h"
 #include "ofxOpenVR.h"
@@ -70,6 +68,11 @@ public:
 	gl::GlslProgRef mLandShader, mParticleShader, mOrganismShader, mStalkShader, mCreatureShader, mHandShader, mFishShader;
 	gl::BatchRef mParticleBatch, mGhostBatch, mLandBatch, mOrganismBatch, mStalkBatch, mMirrorBatch, mCreatureBatch, mHandBatch, mFishBatch;
 	*/
+
+	ofTexture mParticleTexture;
+	ofShader mParticleShader;
+	ofVboMesh mParticleVbo;
+
 	std::vector<OrganismInstanceData> organismInstances;
 	std::vector<StalkInstanceData> stalkInstances;
 	std::vector<HandInstanceData> handInstances;
@@ -127,6 +130,11 @@ public:
 	void update_nav();
 	void updateGPU();
 	void draw();
+
+	void draw_particles(float scale);
+	void draw_organisms();
+	void draw_organisms_outlines();
+	void draw_stalks();
 
 	void keyPressed(int key);
 	void keyReleased(int key);

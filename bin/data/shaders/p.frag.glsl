@@ -1,5 +1,12 @@
-#include "lib.glsl"
-#version 150
+#version 410
+
+out vec4 fragColor;
+
+void main() {
+	fragColor = vec4(1., 0., 0.3, 1.);
+}
+
+/*
 
 uniform sampler2D uTex0;
 //uniform sampler3D uLandTex;
@@ -118,3 +125,5 @@ void main( void )
 	// gamma
 	outColor.rgb = pow(outColor.rgb, gamma3);
 }
+
+*/
